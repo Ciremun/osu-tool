@@ -15,45 +15,45 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\gltext.h">
+    <ClInclude Include="..\..\src\gldraw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\hook.h">
+    <ClInclude Include="..\..\src\gltext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\mem.h">
+    <ClInclude Include="..\..\src\hook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\proc.h">
+    <ClInclude Include="..\..\src\mem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\gldraw.h">
+    <ClInclude Include="..\..\src\proc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\replace.h">
+    <ClInclude Include="..\..\src\replace.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\dllmain.cpp">
+    <ClCompile Include="..\..\src\dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\gltext.cpp">
+    <ClCompile Include="..\..\src\gldraw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\hook.cpp">
+    <ClCompile Include="..\..\src\gltext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\mem.cpp">
+    <ClCompile Include="..\..\src\hook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\proc.cpp">
+    <ClCompile Include="..\..\src\mem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\gldraw.cpp">
+    <ClCompile Include="..\..\src\proc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\replace.cpp">
+    <ClCompile Include="..\..\src\replace.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

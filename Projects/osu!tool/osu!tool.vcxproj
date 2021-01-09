@@ -18,6 +18,23 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\gldraw.h" />
+    <ClInclude Include="..\..\src\gltext.h" />
+    <ClInclude Include="..\..\src\hook.h" />
+    <ClInclude Include="..\..\src\mem.h" />
+    <ClInclude Include="..\..\src\proc.h" />
+    <ClInclude Include="..\..\src\replace.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\dllmain.cpp" />
+    <ClCompile Include="..\..\src\gldraw.cpp" />
+    <ClCompile Include="..\..\src\gltext.cpp" />
+    <ClCompile Include="..\..\src\hook.cpp" />
+    <ClCompile Include="..\..\src\mem.cpp" />
+    <ClCompile Include="..\..\src\proc.cpp" />
+    <ClCompile Include="..\..\src\replace.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -142,23 +159,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="src\gldraw.h" />
-    <ClInclude Include="src\gltext.h" />
-    <ClInclude Include="src\hook.h" />
-    <ClInclude Include="src\mem.h" />
-    <ClInclude Include="src\proc.h" />
-    <ClInclude Include="src\replace.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\dllmain.cpp" />
-    <ClCompile Include="src\gldraw.cpp" />
-    <ClCompile Include="src\gltext.cpp" />
-    <ClCompile Include="src\hook.cpp" />
-    <ClCompile Include="src\mem.cpp" />
-    <ClCompile Include="src\proc.cpp" />
-    <ClCompile Include="src\replace.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
