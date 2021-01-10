@@ -4,8 +4,11 @@
 #include "mem.h"
 #include "proc.h"
 #include "replace.h"
+
 #include <winuser.h>
 #include <psapi.h>
+
+#include <unordered_map>
 #include <iostream>
 #include <string>
 
@@ -22,7 +25,15 @@ bool drawText = true;
 
 using namespace std;
 
-string text = "Test asdfasdfasdf";
+string text;
+string osu_path;
+string window_title;
+string new_window_title;
+
+unordered_map<string, string> edit_params = {
+    {"AR", "10"},
+    {"CS", "6"}
+};
 
 HWND g_HWND = NULL;
 bool found_HWND = false;
@@ -53,11 +64,11 @@ void Draw()
     GL::RestoreGL();
 }
 
-void GetWindowTitle()
+string GetWindowTitle()
 {
-    char windowTitle[1024];
-    GetWindowTextA(g_HWND, windowTitle, 1024);
-    text = string(windowTitle);
+    char window_title[1024];
+    GetWindowTextA(g_HWND, window_title, 1024);
+    return string(window_title);
 }
 
 void Input()
@@ -87,10 +98,35 @@ BOOL __stdcall hkwglSwapBuffers(HDC hDc)
 
         EnumWindows(EnumWindowsProcMy, procID);
 
-        text = GetExePath(procID);
+        string osuExePath = GetExePath(procID);
+        size_t backslashPos = osuExePath.rfind('\\');
+        osu_path = osuExePath.substr(0, backslashPos + 1) + "Songs\\";
+        text = "AR: " + edit_params["AR"] + ", CS: " + edit_params["CS"];
         found_HWND = true;
     }
-    //GetWindowTitle();
+    new_window_title = GetWindowTitle();
+    if (window_title != new_window_title)
+    {
+        if (new_window_title != "osu!")
+        {
+            vector<string> osu_map_parts;
+
+            split(new_window_title, "-", osu_map_parts);
+            string no_osu = join(osu_map_parts.begin() + 1, osu_map_parts.end(), "-");
+            no_osu.erase(0, 1);
+
+            osu_map_parts.clear();
+            split(no_osu, "[", osu_map_parts);
+
+            string& title = osu_map_parts[0];
+            title.pop_back();
+
+            const string& diff = "[" + osu_map_parts[1];
+
+            replace(osu_path, edit_params, title, diff);
+        }
+        window_title = new_window_title;
+    }
     Input();
     if (drawText)
     {
@@ -108,8 +144,6 @@ DWORD WINAPI HackThread(HMODULE hModule)
     Hook SwapBuffersHook("wglSwapBuffers", "opengl32.dll", (BYTE*)hkwglSwapBuffers, (BYTE*)&wglSwapBuffersGateway, 5);
     SwapBuffersHook.Enable();
 
-    //cout << "Hooked" << endl;
-
     return 0;
 }
 
@@ -120,9 +154,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call,
     case DLL_PROCESS_ATTACH:
         CloseHandle(CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)HackThread,
             hModule, 0, nullptr));
-    case DLL_THREAD_ATTACH:
-    case DLL_THREAD_DETACH:
-    case DLL_PROCESS_DETACH:
+    default:
         break;
     }
     return TRUE;

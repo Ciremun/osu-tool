@@ -1,5 +1,6 @@
 #pragma once
 #include <windows.h>
+
 #include "mem.h"
 
 bool Detour32(BYTE* src, BYTE* dst, const uintptr_t len);

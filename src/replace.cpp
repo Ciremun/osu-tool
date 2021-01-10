@@ -1,11 +1,10 @@
+#include "replace.h"
+
 #include <unordered_map>
 #include <filesystem>
-#include <algorithm>
-#include <iostream>
 #include <fstream>
 #include <sstream>
-#include <string>
-#include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -14,10 +13,6 @@ unordered_map<string, string> map_params = {
     {"OD", "OverallDifficulty"},
     {"CS", "CircleSize"} };
 
-unordered_map<string, string> edit_params;
-
-string command;
-string osu_path;
 string prev_file_path;
 vector<string> prev_file_contents;
 
@@ -35,7 +30,7 @@ void read_file(string filename, vector<string>& lines)
     }
 }
 
-template <typename Iter>
+template <class Iter>
 string join(Iter begin, Iter end, string const& separator)
 {
     ostringstream result;
@@ -66,78 +61,34 @@ void revert()
     {
         return;
     }
-    const vector<string>& fc = prev_file_contents;
     ofstream song;
     song.open(prev_file_path);
-    song << join(fc.begin(), fc.end(), "\n");
+    song << join(prev_file_contents.begin(), prev_file_contents.end(), "\n");
     song.close();
-    cout << "revert " << prev_file_path << endl;
 }
 
-void next()
+void replace(const string& osu_path, const unordered_map<string, string>& edit_params, const string& title, const string& diff)
 {
-    edit_params.clear();
     revert();
-    vector<string> cmd_parts;
-    vector<string> param_parts;
-    split(command, " ", cmd_parts);
-    for (size_t i = 2; i < cmd_parts.size(); i++)
-    {
-        param_parts.clear();
-        string& param = cmd_parts[i];
-        split(param, "=", param_parts);
-        if (param_parts.size() != 2)
-        {
-            cout << "error: bad parameter " << param << endl;
-            return;
-        }
-        string& param_short = param_parts[0];
-        string& param_val = param_parts[1];
-        float param_val_i = stof(param_val);
-        if (!(0.1f <= param_val_i && param_val_i <= 10.0))
-        {
-            cout << "error: parameter " << param_short << "=" << param_val << " is out of range 0.1 - 10.0" << endl;
-            return;
-        }
-        transform(param_short.begin(), param_short.end(), param_short.begin(), ::toupper);
-        if (!map_params.contains(param_short))
-        {
-            cout << "error: unknown map parameter: " << param_short << endl;
-            return;
-        }
-        string& param_long = map_params[param_short];
-        edit_params[param_long] = param_val;
-    }
-    string song_folder;
-    string folder_str;
-    string file_str;
-    string& title_query = cmd_parts[0];
-    string& diff_query = cmd_parts[1];
-    transform(title_query.begin(), title_query.end(), title_query.begin(), ::tolower);
-    transform(diff_query.begin(), diff_query.end(), diff_query.begin(), ::tolower);
     for (const auto& folder : filesystem::directory_iterator(osu_path))
     {
-        folder_str = folder.path().stem().string();
-        transform(folder_str.begin(), folder_str.end(), folder_str.begin(), ::tolower);
-        if (folder_str.find(title_query) != string::npos)
+        string folder_str = folder.path().stem().string();
+        if (folder_str.find(title) != string::npos)
         {
-            song_folder = osu_path + "\\" + folder_str;
+            string song_folder = osu_path + folder_str;
             for (const auto& file : filesystem::directory_iterator(song_folder))
             {
-                file_str = file.path().stem().string();
-                transform(file_str.begin(), file_str.end(), file_str.begin(), ::tolower);
-                if (file_str.find(diff_query) != string::npos)
+                string file_str = file.path().stem().string();
+                if (file_str.find(diff) != string::npos)
                 {
                     vector<string> lines;
                     read_file(file.path().string(), lines);
-                    string file_path = file.path().string();
-                    prev_file_path = file_path;
                     prev_file_contents = lines;
                     for (auto& line : lines)
                     {
                         for (const auto& p : edit_params)
                         {
-                            const string& param_name = p.first;
+                            const string& param_name = map_params[p.first];
                             const string& param_val = p.second;
                             if (line.rfind(param_name, 0) == 0)
                             {
@@ -147,16 +98,16 @@ void next()
                             }
                         }
                     }
+                    string file_path = file.path().string();
+                    prev_file_path = file_path;
                     if (prev_file_contents == lines)
                     {
-                        cout << "nothing to replace" << endl;
                         return;
                     }
                     ofstream song;
                     song.open(file_path);
                     song << join(lines.begin(), lines.end(), "\n");
                     song.close();
-                    cout << "modified file " << file_str << endl;
                     return;
                 }
             }
