@@ -1,4 +1,4 @@
-#include "proc.h"
+#include "proc.hpp"
 
 DWORD GetProcId(const wchar_t* procName)
 {

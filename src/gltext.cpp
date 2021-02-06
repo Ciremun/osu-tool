@@ -1,4 +1,4 @@
-#include "gltext.h"
+#include "gltext.hpp"
 
 void GL::Font::Build(int height)
 {

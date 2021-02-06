@@ -15,22 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\gldraw.h">
+    <ClInclude Include="..\..\src\gldraw.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\gltext.h">
+    <ClInclude Include="..\..\src\gltext.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\hook.h">
+    <ClInclude Include="..\..\src\hook.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\mem.h">
+    <ClInclude Include="..\..\src\mem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\proc.h">
+    <ClInclude Include="..\..\src\proc.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\replace.h">
+    <ClInclude Include="..\..\src\replace.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

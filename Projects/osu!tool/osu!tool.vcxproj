@@ -19,12 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\gldraw.h" />
-    <ClInclude Include="..\..\src\gltext.h" />
-    <ClInclude Include="..\..\src\hook.h" />
-    <ClInclude Include="..\..\src\mem.h" />
-    <ClInclude Include="..\..\src\proc.h" />
-    <ClInclude Include="..\..\src\replace.h" />
+    <ClInclude Include="..\..\src\gldraw.hpp" />
+    <ClInclude Include="..\..\src\gltext.hpp" />
+    <ClInclude Include="..\..\src\hook.hpp" />
+    <ClInclude Include="..\..\src\mem.hpp" />
+    <ClInclude Include="..\..\src\proc.hpp" />
+    <ClInclude Include="..\..\src\replace.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\dllmain.cpp" />

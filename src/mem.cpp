@@ -1,4 +1,4 @@
-#include "mem.h"
+#include "mem.hpp"
 
 void mem::Patch(BYTE* dst, BYTE* src, unsigned int size)
 {

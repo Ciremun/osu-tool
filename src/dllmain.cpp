@@ -1,9 +1,9 @@
-#include "gldraw.h"
-#include "gltext.h"
-#include "hook.h"
-#include "mem.h"
-#include "proc.h"
-#include "replace.h"
+#include "gldraw.hpp"
+#include "gltext.hpp"
+#include "hook.hpp"
+#include "mem.hpp"
+#include "proc.hpp"
+#include "replace.hpp"
 
 #include <winuser.h>
 #include <psapi.h>

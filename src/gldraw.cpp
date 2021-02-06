@@ -1,4 +1,4 @@
-#include "glDraw.h"
+#include "glDraw.hpp"
 
 void GL::SetupOrtho()
 {
